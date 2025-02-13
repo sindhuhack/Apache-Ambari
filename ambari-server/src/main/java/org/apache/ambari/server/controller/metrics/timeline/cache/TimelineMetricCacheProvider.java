@@ -19,8 +19,6 @@ package org.apache.ambari.server.controller.metrics.timeline.cache;
 
 import java.time.Duration;
 
-import static net.sf.ehcache.config.PersistenceConfiguration.Strategy;
-
 import org.apache.ambari.server.configuration.Configuration;
 import org.ehcache.Cache;
 import org.ehcache.CacheManager;
