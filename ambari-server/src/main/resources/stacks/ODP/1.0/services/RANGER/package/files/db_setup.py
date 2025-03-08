@@ -146,16 +146,19 @@ def dbversionBasedOnUserName(userName):
 		version = 'DEFAULT_KEYADMIN_UPDATE'
 	return version
 
-# Compatibility python 3 and python 2
 def set_env_val(command):
+    # Determine the correct argument for text mode based on Python version
     if sys.version_info[0] < 3:  # Python 2
         TEXT_MODE = {"universal_newlines": True}
     else:  # Python 3 and later
-        TEXT_MODE = {"text": True}
-    proc = subprocess.Popen(command, stdout = subprocess.PIPE, **TEXT_MODE)
+        TEXT_MODE = {"text": True} if sys.version_info >= (3, 7) else {"universal_newlines": True}
+
+    proc = subprocess.Popen(command, stdout=subprocess.PIPE, **TEXT_MODE)
+
     for line in proc.stdout:
-         (key, _, value) = line.partition("=")
-         os.environ[key] = value.rstrip()
+        key, _, value = line.partition("=")
+        os.environ[key] = value.rstrip()
+
     proc.communicate()
 
 def run_env_file(path):
