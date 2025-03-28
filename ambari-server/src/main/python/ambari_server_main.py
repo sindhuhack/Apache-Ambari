@@ -197,21 +197,20 @@ def generate_child_process_param_list(ambari_user, java_exe, class_path,
         "> {4} 2>&1 || echo $? > {5}"
   elif JDK_VERSION == 17:
     jvm_args = os.getenv('AMBARI_JVM_ARGS', '-Xms512m -Xmx2048m')
-    SERVER_START_CMD = "{0} " \
-        "-server -XX:NewRatio=3 " \
-        "-Dsun.zip.disableMemoryMapping=true " + \
-        "{1} {2} " \
-        "-cp {3} "\
-        "org.apache.ambari.server.controller.AmbariServer " \
-        "> {4} 2>&1 || echo $? > {5}"
-    SERVER_START_CMD_DEBUG = "{0} " \
-        "-server -XX:NewRatio=2 " \
-        "{1} {2} " \
-        " -Xdebug -Xrunjdwp:transport=dt_socket,address=5005," \
-        "server=y,suspend={6} " \
-        "-cp {3} " + \
-        "org.apache.ambari.server.controller.AmbariServer " \
-        "> {4} 2>&1 || echo $? > {5}"
+    SERVER_START_CMD = (
+      "{0} "
+      "-server -XX:NewRatio=3 " + "{1} {2} "
+      "-cp {3} "
+      "org.apache.ambari.server.controller.AmbariServer "
+      "> {4} 2>&1 || echo $? > {5}"
+    )
+    SERVER_START_CMD_DEBUG = (
+      "{0} -server"
+      "{1} {2} " + " -Xdebug -Xrunjdwp:transport=dt_socket,address=*:5005,"
+      "server=y,suspend={6} "
+      "-cp {3} " + "org.apache.ambari.server.controller.AmbariServer "
+      "> {4} 2>&1 || echo $? > {5}"
+    )
   else:
     exception = FatalException(-1, JDK_VERSION_NOT_SUPPORTED.format(JDK_VERSION))
     raise exception

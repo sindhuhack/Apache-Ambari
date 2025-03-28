@@ -66,13 +66,14 @@ public class StackAdvisorRunnerTest {
     File actionDirectory = temp.newFolder("actionDir");
     ProcessBuilder processBuilder = createNiceMock(ProcessBuilder.class);
     StackAdvisorRunner saRunner = new StackAdvisorRunner();
-    Configuration configMock = createNiceMock(Configuration.class);
-    saRunner.setConfigs(configMock);
+    Configuration configuration = new Configuration();
+    configuration.setProperty(Configuration.METADATA_DIR_PATH, "");
+    saRunner.setConfigs(configuration);
     stub(PowerMock.method(StackAdvisorRunner.class, "prepareShellCommand"))
         .toReturn(processBuilder);
     expect(processBuilder.environment()).andReturn(new HashMap<>()).times(3);
     expect(processBuilder.start()).andThrow(new IOException());
-    replay(processBuilder, configMock);
+    replay(processBuilder);
     saRunner.runScript(ServiceInfo.ServiceAdvisorType.PYTHON, saCommandType, actionDirectory);
   }
 
@@ -83,15 +84,16 @@ public class StackAdvisorRunnerTest {
     File actionDirectory = temp.newFolder("actionDir");
     ProcessBuilder processBuilder = createNiceMock(ProcessBuilder.class);
     Process process = createNiceMock(Process.class);
+    Configuration configuration = new Configuration();
+    configuration.setProperty(Configuration.METADATA_DIR_PATH, "");
     StackAdvisorRunner saRunner = new StackAdvisorRunner();
-    Configuration configMock = createNiceMock(Configuration.class);
-    saRunner.setConfigs(configMock);
+    saRunner.setConfigs(configuration);
     stub(PowerMock.method(StackAdvisorRunner.class, "prepareShellCommand"))
         .toReturn(processBuilder);
     expect(processBuilder.environment()).andReturn(new HashMap<>()).times(3);
     expect(processBuilder.start()).andReturn(process);
     expect(process.waitFor()).andReturn(1);
-    replay(processBuilder, process, configMock);
+    replay(processBuilder, process);
     saRunner.runScript(ServiceInfo.ServiceAdvisorType.PYTHON, saCommandType, actionDirectory);
   }
 
@@ -103,15 +105,16 @@ public class StackAdvisorRunnerTest {
     ProcessBuilder processBuilder = createNiceMock(ProcessBuilder.class);
     Process process = createNiceMock(Process.class);
     StackAdvisorRunner saRunner = new StackAdvisorRunner();
-    Configuration configMock = createNiceMock(Configuration.class);
-    saRunner.setConfigs(configMock);
+    Configuration configuration = new Configuration();
+    configuration.setProperty(Configuration.METADATA_DIR_PATH, "");
+    saRunner.setConfigs(configuration);
 
     stub(PowerMock.method(StackAdvisorRunner.class, "prepareShellCommand"))
         .toReturn(processBuilder);
     expect(processBuilder.environment()).andReturn(new HashMap<>()).times(3);
     expect(processBuilder.start()).andReturn(process);
     expect(process.waitFor()).andReturn(2);
-    replay(processBuilder, process, configMock);
+    replay(processBuilder, process);
     saRunner.runScript(ServiceInfo.ServiceAdvisorType.PYTHON, saCommandType, actionDirectory);
   }
 
@@ -123,15 +126,16 @@ public class StackAdvisorRunnerTest {
     ProcessBuilder processBuilder = createNiceMock(ProcessBuilder.class);
     Process process = createNiceMock(Process.class);
     StackAdvisorRunner saRunner = new StackAdvisorRunner();
-    Configuration configMock = createNiceMock(Configuration.class);
-    saRunner.setConfigs(configMock);
+    Configuration configuration = new Configuration();
+    configuration.setProperty(Configuration.METADATA_DIR_PATH, "");
+    saRunner.setConfigs(configuration);
 
     stub(PowerMock.method(StackAdvisorRunner.class, "prepareShellCommand"))
         .toReturn(processBuilder);
     expect(processBuilder.environment()).andReturn(new HashMap<>()).times(3);
     expect(processBuilder.start()).andReturn(process);
     expect(process.waitFor()).andReturn(0);
-    replay(processBuilder, process, configMock);
+    replay(processBuilder, process);
     try {
       saRunner.runScript(ServiceInfo.ServiceAdvisorType.PYTHON, saCommandType, actionDirectory);
     } catch (StackAdvisorException ex) {

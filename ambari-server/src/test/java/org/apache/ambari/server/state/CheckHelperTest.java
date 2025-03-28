@@ -19,7 +19,7 @@
 package org.apache.ambari.server.state;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -72,7 +72,7 @@ public class CheckHelperTest {
   @Mock
   private Object m_mockPerform;
 
-  final Map<String, Service> m_services = new HashMap<>();
+  final Map<String, Service> m_services = new HashSet<>();
 
   @Before
   public void setup() throws Exception {
@@ -83,7 +83,7 @@ public class CheckHelperTest {
     m_services.clear();
     Mockito.when(m_repositoryVersion.getRepositoryXml()).thenReturn(m_vdfXml);
     Mockito.when(m_vdfXml.getClusterSummary(Mockito.any(Cluster.class))).thenReturn(m_clusterVersionSummary);
-    Mockito.when(m_clusterVersionSummary.getAvailableServiceNames()).thenReturn(m_services.keySet());
+    Mockito.when(m_clusterVersionSummary.getAvailableServiceNames()).thenReturn(m_services);
   }
 
   /**
@@ -115,10 +115,8 @@ public class CheckHelperTest {
     final Cluster cluster = Mockito.mock(Cluster.class);
     final Service service = Mockito.mock(Service.class);
 
-    m_services.put("KAFKA", service);
+    m_services.add("KAFKA");
 
-    Mockito.when(cluster.getServices()).thenReturn(new HashMap<>());
-    Mockito.when(cluster.getClusterId()).thenReturn(1L);
     Mockito.when(clusters.getCluster("cluster")).thenReturn(cluster);
 
     final CheckHelper helper = new CheckHelper();
@@ -190,10 +188,8 @@ public class CheckHelperTest {
     final Cluster cluster = Mockito.mock(Cluster.class);
     final Service service = Mockito.mock(Service.class);
 
-    m_services.put("KAFKA", service);
+    m_services.add("KAFKA");
 
-    Mockito.when(cluster.getServices()).thenReturn(new HashMap<>());
-    Mockito.when(cluster.getClusterId()).thenReturn(1L);
 
     Mockito.when(clusters.getCluster(Mockito.anyString())).thenReturn(cluster);
 
@@ -235,7 +231,7 @@ public class CheckHelperTest {
      */
     @Override
     public Set<String> getApplicableServices() {
-      return m_services.keySet();
+      return m_services;
     }
 
     @Override
