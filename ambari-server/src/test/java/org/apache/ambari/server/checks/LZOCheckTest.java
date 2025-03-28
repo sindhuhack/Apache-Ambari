@@ -27,7 +27,6 @@ package org.apache.ambari.server.checks;
     import org.apache.ambari.server.state.Clusters;
     import org.apache.ambari.server.state.Config;
     import org.apache.ambari.server.state.DesiredConfig;
-    import org.apache.ambari.server.state.RepositoryType;
     import org.apache.ambari.server.state.Service;
     import org.apache.ambari.server.state.repository.ClusterVersionSummary;
     import org.apache.ambari.server.state.repository.VersionDefinitionXml;
