@@ -71,8 +71,6 @@ public class HostsMasterMaintenanceCheckTest {
   @Before
   public void setup() throws Exception {
     m_services.clear();
-
-    Mockito.when(m_repositoryVersion.getType()).thenReturn(RepositoryType.STANDARD);
   }
 
   @Test

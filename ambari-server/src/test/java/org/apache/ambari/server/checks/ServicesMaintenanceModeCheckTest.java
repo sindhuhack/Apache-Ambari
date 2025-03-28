@@ -70,12 +70,16 @@ public class ServicesMaintenanceModeCheckTest {
   public void setup() throws Exception {
     m_services.clear();
 
-    Mockito.when(m_repositoryVersion.getType()).thenReturn(RepositoryType.STANDARD);
-    Mockito.when(m_repositoryVersion.getVersion()).thenReturn("2.2.0.0-1234");
-    Mockito.when(m_repositoryVersion.getStackId()).thenReturn(new StackId("HDP", "2.2"));
-    Mockito.when(m_repositoryVersion.getRepositoryXml()).thenReturn(m_vdfXml);
-    Mockito.when(m_vdfXml.getClusterSummary(Mockito.any(Cluster.class))).thenReturn(m_clusterVersionSummary);
+    StackId stackId = new StackId("HDP", "1.0");
+    String version = "1.0.0.0-1234";
+
+    Mockito.when(m_repositoryVersion.getId()).thenReturn(1L);
+    Mockito.when(m_repositoryVersionEntity.getRepositoryXml()).thenReturn(m_vdfXml);
+    Mockito.when(m_vdfXml.getClusterSummary(Mockito.any(Cluster.class), Mockito.any(AmbariMetaInfo.class))).thenReturn(m_clusterVersionSummary);
     Mockito.when(m_clusterVersionSummary.getAvailableServiceNames()).thenReturn(m_services.keySet());
+
+    m_checkHelper.m_clusters = clusters;
+    Mockito.when(m_checkHelper.m_repositoryVersionDAO.findByPK(Mockito.anyLong())).thenReturn(m_repositoryVersionEntity);
   }
 
   @Test
