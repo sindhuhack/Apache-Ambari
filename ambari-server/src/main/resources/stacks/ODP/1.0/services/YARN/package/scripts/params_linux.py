@@ -229,7 +229,8 @@ rm_port = config['configurations']['yarn-site']['yarn.resourcemanager.webapp.add
 rm_https_port = default('/configurations/yarn-site/yarn.resourcemanager.webapp.https.address', ":8090").split(':')[-1]
 
 java64_home = config['ambariLevelParams']['java_home']
-java_exec = format("{java64_home}/bin/java")
+ambari_java_home = config['ambariLevelParams']['ambari_java_home']
+ambari_java_exec = format("{ambari_java_home}/bin/java")
 hadoop_ssl_enabled = default("/configurations/core-site/hadoop.ssl.enabled", False)
 java_version = expect("/ambariLevelParams/java_version", int)
 

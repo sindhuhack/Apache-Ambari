@@ -65,6 +65,8 @@ if stack_supports_config_versioning:
 
 kms_log_dir = default("/configurations/kms-env/kms_log_dir", "/var/log/ranger/kms")
 java_home = config['ambariLevelParams']['java_home']
+ambari_java_home = config['ambariLevelParams']['ambari_java_home']
+ambari_java_exec = format("{ambari_java_home}/bin/java")
 kms_user  = default("/configurations/kms-env/kms_user", "kms")
 kms_group = default("/configurations/kms-env/kms_group", "kms")
 ranger_kms_max_heap_size = default("/configurations/kms-env/ranger_kms_max_heap_size",1024)

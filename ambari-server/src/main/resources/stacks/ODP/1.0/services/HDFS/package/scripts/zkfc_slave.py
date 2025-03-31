@@ -130,7 +130,7 @@ class ZkfcSlaveDefault(ZkfcSlave):
     if not params.stack_supports_zk_security:
       return
 
-    zkmigrator = ZkMigrator(params.ha_zookeeper_quorum, params.java_exec, params.java_home, params.jaas_file, params.hdfs_user)
+    zkmigrator = ZkMigrator(params.ha_zookeeper_quorum, params.ambari_java_exec, params.ambari_java_home, params.jaas_file, params.hdfs_user)
     zkmigrator.set_acls(params.zk_namespace if params.zk_namespace.startswith('/') else '/' + params.zk_namespace, 'world:anyone:crdwa')
 
 

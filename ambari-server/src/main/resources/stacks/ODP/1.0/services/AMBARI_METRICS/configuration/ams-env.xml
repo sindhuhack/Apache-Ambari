@@ -185,7 +185,11 @@ export AMS_COLLECTOR_HEAPSIZE={{metrics_collector_heapsize}}
 export AMS_HBASE_INIT_CHECK_ENABLED={{ams_hbase_init_check_enabled}}
 
 # AMS Collector options
+{% if java_version &lt;= 8 %}
 export AMS_COLLECTOR_OPTS="-Djava.library.path=/usr/lib/ams-hbase/lib/hadoop-native"
+{% else %}
+export AMS_COLLECTOR_OPTS="-Djava.library.path=/usr/lib/ams-hbase/lib/hadoop-native --add-opens java.base/java.lang=ALL-UNNAMED"
+{% endif %}
 {% if security_enabled %}
 export AMS_COLLECTOR_OPTS="$AMS_COLLECTOR_OPTS -Djava.security.auth.login.config={{ams_collector_jaas_config_file}}"
 {% endif %}
@@ -195,7 +199,7 @@ export AMS_COLLECTOR_OPTS="$AMS_COLLECTOR_OPTS -Djava.security.auth.login.config
 export AMS_COLLECTOR_GC_OPTS="-XX:+UseConcMarkSweepGC -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:{{ams_collector_log_dir}}/collector-gc.log-`date +'%Y%m%d%H%M'`"
 export AMS_COLLECTOR_OPTS="$AMS_COLLECTOR_OPTS $AMS_COLLECTOR_GC_OPTS"
 {% else %}
-export AMS_COLLECTOR_GC_OPTS="-verbose:gc -Xlog:gc:{{ams_collector_log_dir}}/collector-gc.log-`date +'%Y%m%d%H%M'`"
+export AMS_COLLECTOR_GC_OPTS=" -verbose:gc -XX:+PrintGCDetails -Xloggc:{{ams_collector_log_dir}}/collector-gc.log-`date +'%Y%m%d%H%M'`"
 export AMS_COLLECTOR_OPTS="$AMS_COLLECTOR_OPTS $AMS_COLLECTOR_GC_OPTS"
 {% endif %}
 

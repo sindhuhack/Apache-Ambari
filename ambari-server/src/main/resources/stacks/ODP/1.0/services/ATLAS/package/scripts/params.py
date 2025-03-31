@@ -127,7 +127,8 @@ user_group = config['configurations']['cluster-env']['user_group']
 
 # metadata env
 java64_home = config['ambariLevelParams']['java_home']
-java_exec = format("{java64_home}/bin/java")
+ambari_java_home = config['ambariLevelParams']['ambari_java_home']
+ambari_java_exec = format("{ambari_java_home}/bin/java")
 env_sh_template = config['configurations']['atlas-env']['content']
 
 # credential provider
