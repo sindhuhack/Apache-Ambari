@@ -76,12 +76,8 @@ public class HostsRepositoryVersionCheckTest {
   public void setup() throws Exception {
     m_services.clear();
 
-    Mockito.when(m_repositoryVersion.getType()).thenReturn(RepositoryType.STANDARD);
     Mockito.when(m_repositoryVersion.getVersion()).thenReturn("1.0.0.0-1234");
     Mockito.when(m_repositoryVersion.getStackId()).thenReturn(new StackId("HDP", "1.0"));
-    Mockito.when(m_repositoryVersion.getRepositoryXml()).thenReturn(m_vdfXml);
-    Mockito.when(m_vdfXml.getClusterSummary(Mockito.any(Cluster.class))).thenReturn(m_clusterVersionSummary);
-    Mockito.when(m_clusterVersionSummary.getAvailableServiceNames()).thenReturn(m_services.keySet());
   }
 
   @Test
@@ -123,7 +119,6 @@ public class HostsRepositoryVersionCheckTest {
 
     final Cluster cluster = Mockito.mock(Cluster.class);
     Mockito.when(cluster.getClusterId()).thenReturn(1L);
-    Mockito.when(cluster.getDesiredStackVersion()).thenReturn(new StackId());
     Mockito.when(clusters.getCluster("cluster")).thenReturn(cluster);
     final Map<String, Host> hosts = new HashMap<>();
     final Host host1 = Mockito.mock(Host.class);
@@ -137,14 +132,6 @@ public class HostsRepositoryVersionCheckTest {
     hosts.put("host3", host3);
     Mockito.when(clusters.getHostsForCluster("cluster")).thenReturn(hosts);
 
-    Mockito.when(
-        repositoryVersionDAO.findByStackAndVersion(Mockito.any(StackId.class),
-            Mockito.anyString())).thenReturn(null);
-
-    Mockito.when(
-        repositoryVersionDAO.findByStackAndVersion(
-            Mockito.any(StackEntity.class), Mockito.anyString())).thenReturn(
-        null);
 
     PrerequisiteCheck check = new PrerequisiteCheck(null, null);
     PrereqCheckRequest checkRequest = new PrereqCheckRequest("cluster");
@@ -159,15 +146,8 @@ public class HostsRepositoryVersionCheckTest {
 
     final RepositoryVersionEntity repositoryVersion = new RepositoryVersionEntity();
     repositoryVersion.setStack(stackEntity);
-
-    Mockito.when(
-        repositoryVersionDAO.findByStackAndVersion(Mockito.any(StackId.class),
-            Mockito.anyString())).thenReturn(repositoryVersion);
-
-    Mockito.when(
-        repositoryVersionDAO.findByStackAndVersion(
-            Mockito.any(StackEntity.class), Mockito.anyString())).thenReturn(
-        repositoryVersion);
+    
+    
 
     final HostVersionEntity hostVersion = new HostVersionEntity();
     hostVersion.setState(RepositoryVersionState.INSTALLED);
@@ -209,7 +189,6 @@ public class HostsRepositoryVersionCheckTest {
 
     final Cluster cluster = Mockito.mock(Cluster.class);
     Mockito.when(cluster.getClusterId()).thenReturn(1L);
-    Mockito.when(cluster.getDesiredStackVersion()).thenReturn(new StackId());
     Mockito.when(clusters.getCluster("cluster")).thenReturn(cluster);
     final Map<String, Host> hosts = new HashMap<>();
     final Host host1 = Mockito.mock(Host.class);
@@ -271,7 +250,6 @@ public class HostsRepositoryVersionCheckTest {
 
     final Cluster cluster = Mockito.mock(Cluster.class);
     Mockito.when(cluster.getClusterId()).thenReturn(1L);
-    Mockito.when(cluster.getDesiredStackVersion()).thenReturn(new StackId());
     Mockito.when(clusters.getCluster("cluster")).thenReturn(cluster);
     final Map<String, Host> hosts = new HashMap<>();
     final Host host1 = Mockito.mock(Host.class);
