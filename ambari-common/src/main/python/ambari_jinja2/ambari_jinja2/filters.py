@@ -18,7 +18,7 @@ from ambari_jinja2.runtime import Undefined
 from ambari_jinja2.exceptions import FilterArgumentError, SecurityError
 
 
-_word_re = re.compile(r'\w+(?u)')
+_word_re = re.compile(r"(?u)\w+")
 
 
 def contextfilter(f):
