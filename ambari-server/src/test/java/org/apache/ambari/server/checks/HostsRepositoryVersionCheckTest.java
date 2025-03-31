@@ -49,6 +49,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.inject.Provider;
 
+import static org.mockito.ArgumentMatchers.nullable;
+
 /**
  * Unit tests for HostsRepositoryVersionCheck
  *
@@ -172,7 +174,7 @@ public class HostsRepositoryVersionCheckTest {
     Mockito.when(
         hostVersionDAO.findByClusterStackVersionAndHost(Mockito.anyString(),
             Mockito.any(StackId.class), Mockito.anyString(),
-            Mockito.anyString())).thenReturn(hostVersion);
+            nullable(String.class))).thenReturn(hostVersion);
 
     check = new PrerequisiteCheck(null, null);
     checkRequest = new PrereqCheckRequest("cluster");
