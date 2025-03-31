@@ -17,6 +17,8 @@
  */
 package org.apache.ambari.server.checks;
 
+import static org.mockito.ArgumentMatchers.nullable;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +33,6 @@ import org.apache.ambari.server.state.Cluster;
 import org.apache.ambari.server.state.Clusters;
 import org.apache.ambari.server.state.Host;
 import org.apache.ambari.server.state.MaintenanceState;
-import org.apache.ambari.server.state.RepositoryType;
 import org.apache.ambari.server.state.RepositoryVersionState;
 import org.apache.ambari.server.state.Service;
 import org.apache.ambari.server.state.StackId;
@@ -49,7 +50,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.inject.Provider;
 
-import static org.mockito.ArgumentMatchers.nullable;
+
 
 /**
  * Unit tests for HostsRepositoryVersionCheck
