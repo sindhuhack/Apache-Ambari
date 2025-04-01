@@ -25,9 +25,9 @@ import java.util.Set;
 
 import org.apache.ambari.server.api.services.stackadvisor.StackAdvisorResponse;
 import org.apache.ambari.server.state.ValueAttributesInfo;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Recommendation response POJO.
  */
@@ -74,7 +74,7 @@ public class RecommendationResponse extends StackAdvisorResponse {
     private BlueprintClusterBinding blueprintClusterBinding;
 
     @JsonProperty("config-groups")
-    @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Set<ConfigGroup> configGroups;
 
     public Blueprint getBlueprint() {
@@ -131,7 +131,7 @@ public class RecommendationResponse extends StackAdvisorResponse {
     private final Map<String, String> properties = new HashMap<>();
 
     @JsonProperty("property_attributes")
-    @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, ValueAttributesInfo> propertyAttributes = null;
 
     public BlueprintConfigurations() {
@@ -250,12 +250,12 @@ public class RecommendationResponse extends StackAdvisorResponse {
     private List<String> hosts;
 
     @JsonProperty
-    @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, BlueprintConfigurations> configurations =
       new HashMap<>();
 
     @JsonProperty("dependent_configurations")
-    @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, BlueprintConfigurations> dependentConfigurations =
       new HashMap<>();
 

@@ -31,8 +31,8 @@ import org.apache.ambari.server.state.StackId;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.google.inject.Inject;
 
@@ -53,7 +53,7 @@ public class ServiceConfigVersionResponse {
 
 
   @JsonProperty("cluster_name")
-  @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   private final String clusterName;
 
   @JsonProperty("service_name")
@@ -63,7 +63,7 @@ public class ServiceConfigVersionResponse {
   private final Long version;
 
   @JsonProperty("createtime")
-  @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   private final Long createTime;
 
   @JsonProperty("group_id")
@@ -73,11 +73,11 @@ public class ServiceConfigVersionResponse {
   private final String groupName;
 
   @JsonProperty("user")
-  @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   private final String userName;
 
   @JsonProperty("service_config_version_note")
-  @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   private final String note;
 
   @JsonProperty("stack_id")
@@ -89,7 +89,7 @@ public class ServiceConfigVersionResponse {
   @JsonProperty("is_cluster_compatible")
   private final Boolean isCompatibleWithCurrentStack;
 
-  @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   private List<ConfigurationResponse> configurations;
 
   @JsonProperty("hosts")

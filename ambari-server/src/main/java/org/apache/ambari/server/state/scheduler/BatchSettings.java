@@ -17,15 +17,16 @@
  */
 package org.apache.ambari.server.state.scheduler;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public class BatchSettings {
   private Integer batchSeparationInSeconds;
   private Integer taskFailureTolerance;
   private Integer taskFailureTolerancePerBatch;
 
-  @JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("batch_separation_in_seconds")
   public Integer getBatchSeparationInSeconds() {
     return batchSeparationInSeconds;
@@ -35,7 +36,7 @@ public class BatchSettings {
     this.batchSeparationInSeconds = batchSeparationInSeconds;
   }
 
-  @JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("task_failure_tolerance_limit")
   public Integer getTaskFailureToleranceLimit() {
     return taskFailureTolerance;
@@ -45,7 +46,7 @@ public class BatchSettings {
     this.taskFailureTolerance = taskFailureTolerance;
   }
 
-  @JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("task_failure_tolerance_limit_per_batch")
   public Integer getTaskFailureToleranceLimitPerBatch() {
     return taskFailureTolerancePerBatch;
