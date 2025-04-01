@@ -101,6 +101,12 @@ public class UserAuthenticationEntity {
   }
 
   public String getAuthenticationKey() {
+    if (getAuthenticationType().equals(UserAuthenticationType.LOCAL)) {
+      int firstCommaIndex = authenticationKey.indexOf(",");
+      if (firstCommaIndex != -1) {
+        return authenticationKey.substring(0, firstCommaIndex);
+      }
+    }
     return authenticationKey;
   }
 
