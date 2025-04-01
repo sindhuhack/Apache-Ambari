@@ -129,6 +129,11 @@ has_ozone_manager = len(ozone_manager_hosts) > 0
 hive_server2_hive_dir = None
 hive_server2_hive_lib = None
 
+java64_home = config["ambariLevelParams"]["java_home"]
+ambari_java_home = config["ambariLevelParams"]["ambari_java_home"]
+ambari_java_exec = format("{ambari_java_home}/bin/java")
+java_version = expect("/ambariLevelParams/java_version", int)
+
 if check_stack_feature(StackFeature.HIVE_SERVER_INTERACTIVE, version_for_stack_feature_checks):
   # the name of the hiveserver2-hive2 component
   hive_server2_hive_component = status_params.SERVER_ROLE_DIRECTORY_MAP["HIVE_SERVER"]
@@ -220,7 +225,7 @@ if credential_store_enabled:
     java_home = config['ambariLevelParams']['java_home']
     alias = 'javax.jdo.option.ConnectionPassword'
     provider_path = config['configurations']['hive-site']['hadoop.security.credential.provider.path']
-    hive_metastore_user_passwd = PasswordString(get_password_from_credential_store(alias, provider_path, cs_lib_path, java_home, jdk_location))
+    hive_metastore_user_passwd = PasswordString(get_password_from_credential_store(alias, provider_path, cs_lib_path, ambari_java_home, jdk_location))
   else:
     raise Exception("hadoop.security.credential.provider.path property should be set")
 else:
