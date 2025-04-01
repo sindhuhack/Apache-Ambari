@@ -249,7 +249,7 @@ export HADOOP_OPTS="$HADOOP_OPTS -Xlog:gc:{{hive_log_dir}}/hiveserverinteractive
 # The heap size of the jvm stared by hive shell script can be controlled via:
 export HADOOP_HEAPSIZE={{hive_interactive_heapsize}} # Setting for HiveServer2 and Client
 
-export HADOOP_CLIENT_OPTS="$HADOOP_CLIENT_OPTS  -Xmx${HADOOP_HEAPSIZE}m"
+export HADOOP_CLIENT_OPTS="$HADOOP_CLIENT_OPTS -Xms${HADOOP_HEAPSIZE}m -Xmx${HADOOP_HEAPSIZE}m"
 export HADOOP_CLIENT_OPTS="$HADOOP_CLIENT_OPTS{{heap_dump_opts}}"
 
 # Larger heap size may be required when running queries over large number of files or partitions.
