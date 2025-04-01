@@ -168,7 +168,7 @@ public class AmbariMetricsHadoopSinkVersionCheckTest {
 
     ResourceProvider resourceProviderMock = mock(ResourceProvider.class);
     PowerMockito.mockStatic(AbstractControllerResourceProvider.class);
-    when(AbstractControllerResourceProvider.getResourceProvider(eq(Resource.Type.Request), any(AmbariManagementController.class))).thenReturn(resourceProviderMock);
+    when(AbstractControllerResourceProvider.getResourceProvider(Mockito.eq(Resource.Type.Request), any(AmbariManagementController.class))).thenReturn(resourceProviderMock);
 
     PowerMockito.mockStatic(PropertyHelper.class);
     Request requestMock = mock(Request.class);
@@ -221,7 +221,7 @@ public class AmbariMetricsHadoopSinkVersionCheckTest {
 
     ResourceProvider resourceProviderMock = mock(ResourceProvider.class);
     PowerMockito.mockStatic(AbstractControllerResourceProvider.class);
-    when(AbstractControllerResourceProvider.getResourceProvider(eq(Resource.Type.Request), any(AmbariManagementController.class))).thenReturn(resourceProviderMock);
+    when(AbstractControllerResourceProvider.getResourceProvider(Mockito.eq(Resource.Type.Request), any(AmbariManagementController.class))).thenReturn(resourceProviderMock);
 
     PowerMockito.mockStatic(PropertyHelper.class);
     Request requestMock = mock(Request.class);
