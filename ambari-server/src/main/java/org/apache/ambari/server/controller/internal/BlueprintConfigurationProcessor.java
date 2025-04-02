@@ -1703,6 +1703,9 @@ public class BlueprintConfigurationProcessor {
                                   Map<String, Map<String, String>> properties,
                                   ClusterTopology topology);
 
+    default String updateForBlueprintExport(String propertyName, String value, Map<String, Map<String, String>> properties, ClusterTopology topology) {
+      return value;
+    }
     /**
      * Determine the required host groups for the provided property.
      *

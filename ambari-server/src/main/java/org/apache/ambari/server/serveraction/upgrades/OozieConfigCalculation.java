@@ -34,7 +34,7 @@ import org.apache.ambari.server.state.Host;
 import org.apache.ambari.server.state.ServiceComponentSupport;
 import org.apache.ambari.server.state.StackId;
 import org.apache.ambari.server.state.UpgradeContext;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import com.google.inject.Inject;
 

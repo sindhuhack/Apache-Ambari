@@ -531,7 +531,7 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>-->
+      </plugin>
       <!--<plugin>
         <artifactId>eclipselink-staticweave-maven-plugin</artifactId>
         <groupId>au.com.alderaan</groupId>

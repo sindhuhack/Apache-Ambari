@@ -17,6 +17,7 @@
  */
 package org.apache.ambari.server.checks;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +27,7 @@ import org.apache.ambari.server.controller.PrereqCheckRequest;
 import org.apache.ambari.server.orm.entities.RepositoryVersionEntity;
 import org.apache.ambari.server.state.Cluster;
 import org.apache.ambari.server.state.Clusters;
+import org.apache.ambari.server.state.RepositoryType;
 import org.apache.ambari.server.state.Service;
 import org.apache.ambari.server.state.StackId;
 import org.apache.ambari.server.state.State;
@@ -60,6 +62,9 @@ public class ServicesMaintenanceModeCheckTest {
   @Mock
   private RepositoryVersionEntity m_repositoryVersion;
 
+  @Mock
+  private RepositoryVersionEntity m_repositoryVersionEntity;
+
   final Map<String, Service> m_services = new HashMap<>();
 
   /**
@@ -69,16 +74,12 @@ public class ServicesMaintenanceModeCheckTest {
   public void setup() throws Exception {
     m_services.clear();
 
-    StackId stackId = new StackId("HDP", "1.0");
-    String version = "1.0.0.0-1234";
-
-    Mockito.when(m_repositoryVersion.getId()).thenReturn(1L);
-    Mockito.when(m_repositoryVersionEntity.getRepositoryXml()).thenReturn(m_vdfXml);
-    Mockito.when(m_vdfXml.getClusterSummary(Mockito.any(Cluster.class), Mockito.any(AmbariMetaInfo.class))).thenReturn(m_clusterVersionSummary);
+    Mockito.when(m_repositoryVersion.getType()).thenReturn(RepositoryType.STANDARD);
+    Mockito.when(m_repositoryVersion.getVersion()).thenReturn("2.2.0.0-1234");
+    Mockito.when(m_repositoryVersion.getStackId()).thenReturn(new StackId("HDP", "2.2"));
+    Mockito.when(m_repositoryVersion.getRepositoryXml()).thenReturn(m_vdfXml);
+    Mockito.when(m_vdfXml.getClusterSummary(Mockito.any(Cluster.class))).thenReturn(m_clusterVersionSummary);
     Mockito.when(m_clusterVersionSummary.getAvailableServiceNames()).thenReturn(m_services.keySet());
-
-    m_checkHelper.m_clusters = clusters;
-    Mockito.when(m_checkHelper.m_repositoryVersionDAO.findByPK(Mockito.anyLong())).thenReturn(m_repositoryVersionEntity);
   }
 
   @Test

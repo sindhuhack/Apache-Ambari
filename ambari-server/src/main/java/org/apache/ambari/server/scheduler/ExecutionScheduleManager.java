@@ -566,8 +566,8 @@ public class ExecutionScheduleManager {
 
   }
 
-  private BatchRequestResponse convertToBatchRequestResponse(ClientResponse clientResponse) {
-    private BatchRequestResponse convertToBatchRequestResponse(Response clientResponse) {
+  private BatchRequestResponse convertToBatchRequestResponse(Response clientResponse) {
+    BatchRequestResponse batchRequestResponse = new BatchRequestResponse();
     int retCode = clientResponse.getStatus();
 
     batchRequestResponse.setReturnCode(retCode);

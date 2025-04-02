@@ -27,7 +27,7 @@ import org.apache.ambari.server.serveraction.upgrades.AutoSkipFailedSummaryActio
 import org.apache.ambari.server.stack.HostsType;
 import org.apache.ambari.server.state.UpgradeContext;
 import org.apache.ambari.server.state.stack.UpgradePack.ProcessingComponent;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 /**
  * Defines how to build stages for an Upgrade or Downgrade.

@@ -48,7 +48,7 @@ import org.apache.ambari.server.state.stack.upgrade.ServiceCheckGrouping;
 import org.apache.ambari.server.state.stack.upgrade.Task;
 import org.apache.ambari.server.state.stack.upgrade.Task.Type;
 import org.apache.ambari.server.state.stack.upgrade.UpgradeType;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

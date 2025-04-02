@@ -63,9 +63,9 @@ import org.apache.ambari.server.state.kerberos.KerberosIdentityDescriptor;
 import org.apache.ambari.server.state.kerberos.KerberosServiceDescriptor;
 import org.apache.ambari.server.state.kerberos.VariableReplacementHelper;
 import org.apache.ambari.server.state.stack.upgrade.Direction;
+import org.apache.ambari.server.utils.StageUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.google.inject.Inject;
