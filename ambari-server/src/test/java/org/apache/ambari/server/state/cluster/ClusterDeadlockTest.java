@@ -273,6 +273,7 @@ public class ClusterDeadlockTest {
       }
     }
     if (wt.isDeadlocked()){
+      System.out.println(wt.getErrorMessages());
       Assert.assertFalse(wt.getErrorMessages().toString(), wt.isDeadlocked());
     } else {
       Assert.assertFalse(wt.isDeadlocked());

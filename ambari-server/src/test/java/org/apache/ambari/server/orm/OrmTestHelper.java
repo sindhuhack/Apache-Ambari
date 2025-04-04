@@ -518,6 +518,15 @@ public class OrmTestHelper {
     alertDispatchDAO.create(target);
     return target;
   }
+  public AlertTargetEntity createAlertTarget(Integer count) throws Exception {
+    AlertTargetEntity target = new AlertTargetEntity();
+    target.setDescription("Target Description");
+    target.setNotificationType("EMAIL");
+    target.setProperties("Target Properties");
+    target.setTargetName("Target Name " + UUID.randomUUID().toString());
+    alertDispatchDAO.create(target);
+    return target;
+  }
 
   /**
    * Creates a global alert target.

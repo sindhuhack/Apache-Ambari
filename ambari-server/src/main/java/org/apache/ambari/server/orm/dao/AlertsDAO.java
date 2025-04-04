@@ -1651,4 +1651,8 @@ public class AlertsDAO implements Cleanable {
     }
   }
 
+  public EntityManager getEntityManager(){
+    return m_entityManagerProvider.get();
+  }
+
 }

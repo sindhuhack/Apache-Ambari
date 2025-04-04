@@ -56,6 +56,8 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 /**
  * Tests OozieConfigCalculation logic
  */
@@ -136,27 +138,31 @@ public class UpgradeUserKerberosDescriptorTest {
     KerberosDescriptor previousDescriptor = EasyMock.createMock(KerberosDescriptor.class);
     KerberosDescriptor updatedKerberosDescriptor = EasyMock.createMock(KerberosDescriptor.class);
 
-    PowerMockito.mockStatic(KerberosDescriptorUpdateHelper.class);
-    PowerMockito.when(KerberosDescriptorUpdateHelper.updateUserKerberosDescriptor(previousDescriptor, newDescriptor, userDescriptor)).thenReturn(updatedKerberosDescriptor);
-    expect(kerberosDescriptorFactory.createInstance((Map)null)).andReturn(userDescriptor).atLeastOnce();
-    expect(ambariMetaInfo.getKerberosDescriptor("HDP","2.5", false)).andReturn(newDescriptor).atLeastOnce();
-    expect(ambariMetaInfo.getKerberosDescriptor("HDP","2.4",false)).andReturn(previousDescriptor).atLeastOnce();
+    try (MockedStatic<KerberosDescriptorUpdateHelper> mockedStatic = Mockito.mockStatic(KerberosDescriptorUpdateHelper.class)) {
+    mockedStatic.when(() -> KerberosDescriptorUpdateHelper.updateUserKerberosDescriptor(previousDescriptor, newDescriptor, userDescriptor))
+                .thenReturn(updatedKerberosDescriptor);
+
+      // Execute your test logic here
+      expect(kerberosDescriptorFactory.createInstance((Map)null)).andReturn(userDescriptor).atLeastOnce();
+      expect(ambariMetaInfo.getKerberosDescriptor("HDP","2.5", false)).andReturn(newDescriptor).atLeastOnce();
+      expect(ambariMetaInfo.getKerberosDescriptor("HDP","2.4",false)).andReturn(previousDescriptor).atLeastOnce();
 
 
-    expect(updatedKerberosDescriptor.toMap()).andReturn(null).once();
+      expect(updatedKerberosDescriptor.toMap()).andReturn(null).once();
 
 
-    expect(artifactDAO.merge(entity)).andReturn(entity).once();
-    Capture<ArtifactEntity> createCapture = Capture.newInstance();
-    artifactDAO.create(capture(createCapture));
-    EasyMock.expectLastCall().once();
+      expect(artifactDAO.merge(entity)).andReturn(entity).once();
+      Capture<ArtifactEntity> createCapture = Capture.newInstance();
+      artifactDAO.create(capture(createCapture));
+      EasyMock.expectLastCall().once();
 
-    replay(artifactDAO, entity, ambariMetaInfo, kerberosDescriptorFactory, updatedKerberosDescriptor);
+      replay(artifactDAO, entity, ambariMetaInfo, kerberosDescriptorFactory, updatedKerberosDescriptor);
 
-    action.execute(null);
+      action.execute(null);
 
-    verify(artifactDAO, updatedKerberosDescriptor);
-    assertEquals(createCapture.getValue().getArtifactName(), "kerberos_descriptor_backup");
+      verify(artifactDAO, updatedKerberosDescriptor);
+      assertEquals(createCapture.getValue().getArtifactName(), "kerberos_descriptor_backup");
+    }
   }
 
   @Test

@@ -248,6 +248,7 @@
             <overridable>false</overridable>
             <type>boolean</type>
         </value-attributes>
+        <on-ambari-upgrade add="true"/>
     </property>
     <!-- <property>
         <name>ozone.om.internal.service.id</name>
@@ -267,6 +268,7 @@
                 <name>ozone.om.ratis.enable</name>
             </property>
         </depends-on>
+        <on-ambari-upgrade add="true"/>
     </property> -->
     <property>
         <name>ozone.om.http-port</name>
@@ -354,14 +356,6 @@
         </description>
         <on-ambari-upgrade add="false"/>
     </property>
-    <!-- <property>
-        <name>ozone.om.service.ids</name>
-        <value/>
-        <display-name>Ozone Manager Security ids</display-name>
-        <description>Comma-separated list of Manager service Ids. This property allows the client
-            to figure out quorum of OzoneManager address.
-        </description>
-    </property> -->
     <property>
         <name>ozone.acl.authorizer.class</name>
         <description>
@@ -540,6 +534,7 @@
             <overridable>false</overridable>
             <empty-value-valid>false</empty-value-valid>
         </value-attributes>
+        <on-ambari-upgrade add="true"/>
     </property> -->
     <property>
         <name>ozone.scm.datanode.port</name>

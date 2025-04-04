@@ -172,7 +172,10 @@
         <name>nifi.registry.ssl.use.default.context</name>
         <value>false</value>
         <display-name>Nifi Registry Ranger plugin default ssl context use</display-name>
-        <property-type>boolean</property-type>
+        <value-attributes>
+            <type>boolean</type>
+            <overridable>true</overridable>
+        </value-attributes>
         <description>Nifi Registry Ranger plugin default ssl context use</description>
         <on-ambari-upgrade add="true"/>
     </property>
@@ -180,7 +183,10 @@
         <name>nifi.registry.ssl.use.default.context</name>
         <value>false</value>
         <display-name>Nifi Registry Ranger plugin default ssl context use</display-name>
-        <property-type>boolean</property-type>
+        <value-attributes>
+            <type>boolean</type>
+            <overridable>true</overridable>
+        </value-attributes>
         <description>Nifi Registry Ranger plugin default ssl context use</description>
         <on-ambari-upgrade add="true"/>
     </property>

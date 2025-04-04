@@ -32,15 +32,20 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 /**
  * Tests {@link HiveZKQuorumConfigAction} to ensure that the correct properties
  * are set.
  */
-@RunWith(PowerMockRunner.class)
+@PowerMockIgnore({"javax.management.*", "javax.net.ssl.*"})
 @PrepareForTest(ZooKeeperQuorumCalculator.class)
 public class HiveZKQuorumConfigActionTest {
 
@@ -87,35 +92,39 @@ public class HiveZKQuorumConfigActionTest {
   public void testZKQuorumPropertiesSetCorrectly() throws Exception {
     final String zookeeperQuorum = "c6401.ambari.apache.org:2181,c6402.ambari.apache.org:2181";
 
-    PowerMockito.mockStatic(ZooKeeperQuorumCalculator.class);
-    PowerMockito.when(ZooKeeperQuorumCalculator.getZooKeeperQuorumString(m_cluster)).thenReturn(
-        zookeeperQuorum);
+    try (MockedStatic<ZooKeeperQuorumCalculator> mockedStatic = Mockito.mockStatic(ZooKeeperQuorumCalculator.class)) {
+    mockedStatic.when(() -> ZooKeeperQuorumCalculator.getZooKeeperQuorumString(m_cluster))
+                .thenReturn(zookeeperQuorum);
 
-    Map<String, String> hiveSiteProperties = new HashMap<>();
+      // Exécuter le test ici
 
-    EasyMock.expect(m_hiveSiteConfig.getProperties()).andReturn(hiveSiteProperties).atLeastOnce();
 
-    m_hiveSiteConfig.setProperties(EasyMock.anyObject());
-    EasyMock.expectLastCall().once();
+      Map<String, String> hiveSiteProperties = new HashMap<>();
 
-    m_hiveSiteConfig.save();
-    EasyMock.expectLastCall().once();
+      EasyMock.expect(m_hiveSiteConfig.getProperties()).andReturn(hiveSiteProperties).atLeastOnce();
 
-    EasyMock.expect(m_cluster.getDesiredConfigByType(HiveZKQuorumConfigAction.HIVE_SITE_CONFIG_TYPE)).andReturn(m_hiveSiteConfig).atLeastOnce();
+      m_hiveSiteConfig.setProperties(EasyMock.anyObject());
+      EasyMock.expectLastCall().once();
 
-    EasyMock.expect(m_cluster.getClusterId()).andReturn(1L).atLeastOnce();
-    EasyMock.expect(m_cluster.getHosts()).andReturn(Collections.emptyList()).atLeastOnce();
-    agentConfigsHolder.updateData(EasyMock.eq(1L), EasyMock.eq(Collections.emptyList()));
-    EasyMock.expectLastCall().atLeastOnce();
+      m_hiveSiteConfig.save();
+      EasyMock.expectLastCall().once();
 
-    EasyMock.replay(m_executionCommand, m_clusters, m_cluster, m_hiveSiteConfig, agentConfigsHolder);
+      EasyMock.expect(m_cluster.getDesiredConfigByType(HiveZKQuorumConfigAction.HIVE_SITE_CONFIG_TYPE)).andReturn(m_hiveSiteConfig).atLeastOnce();
 
-    m_action.execute(null);
+      EasyMock.expect(m_cluster.getClusterId()).andReturn(1L).atLeastOnce();
+      EasyMock.expect(m_cluster.getHosts()).andReturn(Collections.emptyList()).atLeastOnce();
+      agentConfigsHolder.updateData(EasyMock.eq(1L), EasyMock.eq(Collections.emptyList()));
+      EasyMock.expectLastCall().atLeastOnce();
 
-    EasyMock.verify(m_executionCommand, m_clusters, m_cluster, m_hiveSiteConfig, agentConfigsHolder);
+      EasyMock.replay(m_executionCommand, m_clusters, m_cluster, m_hiveSiteConfig, agentConfigsHolder);
 
-    Assert.assertEquals(zookeeperQuorum, hiveSiteProperties.get(HiveZKQuorumConfigAction.HIVE_SITE_ZK_QUORUM));
-    Assert.assertEquals(zookeeperQuorum, hiveSiteProperties.get(HiveZKQuorumConfigAction.HIVE_SITE_ZK_CONNECT_STRING));
+      m_action.execute(null);
+
+      EasyMock.verify(m_executionCommand, m_clusters, m_cluster, m_hiveSiteConfig, agentConfigsHolder);
+
+      Assert.assertEquals(zookeeperQuorum, hiveSiteProperties.get(HiveZKQuorumConfigAction.HIVE_SITE_ZK_QUORUM));
+      Assert.assertEquals(zookeeperQuorum, hiveSiteProperties.get(HiveZKQuorumConfigAction.HIVE_SITE_ZK_CONNECT_STRING));
+    }
   }
 
 }

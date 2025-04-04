@@ -30,8 +30,6 @@
       </component>
     </service>
 
-<<<<<<< HEAD
-=======
     <service name="HDFS">
       <component name="NAMENODE">
         <changes>
@@ -123,7 +121,6 @@
         </changes>
       </component>
     </service>
->>>>>>> 2.7.11.0-python3
 
   </services>
 </upgrade-config-changes>

@@ -2567,7 +2567,7 @@ public class UpgradeHelperTest extends EasyMockSupport {
   }
 
   @Test
-  public void testMergeConfigurationsWithClusterEnv() throws Exception {
+public void testMergeConfigurationsWithClusterEnv() throws Exception {
     Cluster cluster = makeCluster(true);
 
     StackId oldStack = cluster.getDesiredStackVersion();
@@ -2589,39 +2589,52 @@ public class UpgradeHelperTest extends EasyMockSupport {
     stackMap.put("cluster-env", new HashMap<>());
     stackMap.put("hive-site", new HashMap<>());
 
-    final Map<String, String> clusterEnvMap = new HashMap<>();
-
     Capture<Cluster> captureCluster = Capture.newInstance();
     Capture<StackId> captureStackId = Capture.newInstance();
     Capture<AmbariManagementController> captureAmc = Capture.newInstance();
+    Capture<Map<String, Map<String, String>>> cap = EasyMock.newCapture();
+    Capture<String> captureUsername = EasyMock.newCapture();
+    Capture<String> captureNote = EasyMock.newCapture();
 
-    Capture<Map<String, Map<String, String>>> cap = new Capture<Map<String, Map<String, String>>>() {
-      @Override
-      public void setValue(Map<String, Map<String, String>> value) {
-        if (value.containsKey("cluster-env")) {
-          clusterEnvMap.putAll(value.get("cluster-env"));
-        }
-      }
-    };
+    Map<String, String> clusterEnvMap = new HashMap<>();
+    // Ajout de logs pour déboguer
+    System.out.println("Début des expectations...");
 
-    Capture<String> captureUsername = Capture.newInstance();
-    Capture<String> captureNote = Capture.newInstance();
-
-    EasyMock.reset(m_configHelper);
     expect(m_configHelper.getDefaultProperties(oldStack, "HIVE")).andReturn(stackMap).atLeastOnce();
     expect(m_configHelper.getDefaultProperties(newStack, "HIVE")).andReturn(stackMap).atLeastOnce();
     expect(m_configHelper.getDefaultProperties(oldStack, "ZOOKEEPER")).andReturn(stackMap).atLeastOnce();
     expect(m_configHelper.getDefaultProperties(newStack, "ZOOKEEPER")).andReturn(stackMap).atLeastOnce();
+
     expect(m_configHelper.createConfigTypes(
         EasyMock.capture(captureCluster),
         EasyMock.capture(captureStackId),
         EasyMock.capture(captureAmc),
         EasyMock.capture(cap),
-
         EasyMock.capture(captureUsername),
-        EasyMock.capture(captureNote))).andReturn(true);
+        EasyMock.capture(captureNote)
+    )).andAnswer(() -> {
+        System.out.println("Appel de createConfigTypes !");
+        if (cap.hasCaptured()) {
+            Map<String, Map<String, String>> capturedValue = cap.getValue();
+            System.out.println("Contenu capturé : " + capturedValue);
+            if (capturedValue.containsKey("cluster-env")) {
+                clusterEnvMap.putAll(capturedValue.get("cluster-env"));
+            }
+        } else {
+            System.err.println("⚠ cap n'a rien capturé !");
+        }
+        return true;
+    });
 
-    replay(m_configHelper);
+    System.out.println("Fin des expectations. Replay mock...");
+
+    EasyMock.replay(m_configHelper);
+
+    System.out.println("Exécution de la méthode de test...");
+    // testMethodCall();  // ⚠ Vérifie bien que cette méthode appelle createConfigTypes !
+
+    EasyMock.verify(m_configHelper);
+    System.out.println("Mock vérifié avec succès.");
 
     RepositoryVersionEntity repoVersionEntity = helper.getOrCreateRepositoryVersion(new StackId("HDP-2.5.0"), "2.5.0-1234");
 
@@ -2640,10 +2653,11 @@ public class UpgradeHelperTest extends EasyMockSupport {
     assertNotNull(clusterEnvMap);
     assertTrue(clusterEnvMap.containsKey("a"));
 
-    // Do stacks cleanup
+    // Nettoyage
     stackManagerMock.invalidateCurrentPaths();
     ambariMetaInfo.init();
-  }
+}
+
 
   @Test
   public void testSequentialServiceChecks() throws Exception {

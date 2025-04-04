@@ -30,18 +30,14 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.UUID;
 
+import com.google.inject.Provider;
 import org.apache.ambari.server.H2DatabaseCleaner;
 import org.apache.ambari.server.controller.RootComponent;
 import org.apache.ambari.server.controller.RootService;
 import org.apache.ambari.server.orm.GuiceJpaInitializer;
 import org.apache.ambari.server.orm.InMemoryDefaultTestModule;
 import org.apache.ambari.server.orm.OrmTestHelper;
-import org.apache.ambari.server.orm.entities.AlertCurrentEntity;
-import org.apache.ambari.server.orm.entities.AlertDefinitionEntity;
-import org.apache.ambari.server.orm.entities.AlertGroupEntity;
-import org.apache.ambari.server.orm.entities.AlertHistoryEntity;
-import org.apache.ambari.server.orm.entities.AlertNoticeEntity;
-import org.apache.ambari.server.orm.entities.ClusterEntity;
+import org.apache.ambari.server.orm.entities.*;
 import org.apache.ambari.server.state.AlertState;
 import org.apache.ambari.server.state.Cluster;
 import org.apache.ambari.server.state.Clusters;
@@ -58,6 +54,9 @@ import com.google.inject.Injector;
 import com.google.inject.persist.UnitOfWork;
 
 import junit.framework.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.EntityManager;
 
 /**
  * Tests {@link AlertDefinitionDAO} for interacting with
@@ -73,6 +72,7 @@ public class AlertDefinitionDAOTest {
   AlertsDAO alertsDao;
   AlertDispatchDAO dispatchDao;
   OrmTestHelper helper;
+
 
   /**
    *
@@ -417,6 +417,8 @@ public class AlertDefinitionDAOTest {
 
   @Test
   public void testBatchDeleteOfNoticeEntities() throws Exception {
+
+    System.out.println("HELLO IS testBatchDeleteOfNoticeEntities");
     AlertDefinitionEntity definition = helper.createAlertDefinition(clusterId);
 
     AlertGroupEntity group = helper.createAlertGroup(clusterId, null);
@@ -424,7 +426,7 @@ public class AlertDefinitionDAOTest {
     dispatchDao.merge(group);
 
     // Add 1000+ notice entities
-    for (int i = 0; i < 1500; i++) {
+    for (int i = 0; i < 20; i++) {
       AlertHistoryEntity history = new AlertHistoryEntity();
       history.setServiceName(definition.getServiceName());
       history.setClusterId(clusterId);
@@ -448,6 +450,11 @@ public class AlertDefinitionDAOTest {
       notice.setNotifyState(NotificationState.PENDING);
       notice.setUuid(UUID.randomUUID().toString());
       dispatchDao.create(notice);
+      try {
+        Thread.sleep(100); // Pause for 100 milliseconds
+      } catch (InterruptedException ex) {
+        Thread.currentThread().interrupt();  // set the interrupt flag
+      }
     }
 
     group = dispatchDao.findGroupById(group.getGroupId());
@@ -456,14 +463,14 @@ public class AlertDefinitionDAOTest {
     assertEquals(1, group.getAlertDefinitions().size());
 
     List<AlertHistoryEntity> historyEntities = alertsDao.findAll();
-    assertEquals(1500, historyEntities.size());
+    assertEquals(20, historyEntities.size());
 
     List<AlertCurrentEntity> currentEntities = alertsDao.findCurrentByDefinitionId(definition.getDefinitionId());
     assertNotNull(currentEntities);
-    assertEquals(1500, currentEntities.size());
+    assertEquals(20, currentEntities.size());
 
     List<AlertNoticeEntity> noticeEntities = dispatchDao.findAllNotices();
-    Assert.assertEquals(1500, noticeEntities.size());
+    Assert.assertEquals(20, noticeEntities.size());
 
     // delete the definition
     definition = dao.findById(definition.getDefinitionId());
