@@ -30,14 +30,19 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.UUID;
 
-import com.google.inject.Provider;
 import org.apache.ambari.server.H2DatabaseCleaner;
 import org.apache.ambari.server.controller.RootComponent;
 import org.apache.ambari.server.controller.RootService;
+
 import org.apache.ambari.server.orm.GuiceJpaInitializer;
 import org.apache.ambari.server.orm.InMemoryDefaultTestModule;
 import org.apache.ambari.server.orm.OrmTestHelper;
-import org.apache.ambari.server.orm.entities.*;
+import org.apache.ambari.server.orm.entities.AlertCurrentEntity;
+import org.apache.ambari.server.orm.entities.AlertDefinitionEntity;
+import org.apache.ambari.server.orm.entities.AlertGroupEntity;
+import org.apache.ambari.server.orm.entities.AlertHistoryEntity;
+import org.apache.ambari.server.orm.entities.AlertNoticeEntity;
+import org.apache.ambari.server.orm.entities.ClusterEntity;
 import org.apache.ambari.server.state.AlertState;
 import org.apache.ambari.server.state.Cluster;
 import org.apache.ambari.server.state.Clusters;
@@ -45,6 +50,7 @@ import org.apache.ambari.server.state.MaintenanceState;
 import org.apache.ambari.server.state.NotificationState;
 import org.apache.ambari.server.state.alert.Scope;
 import org.apache.ambari.server.state.alert.SourceType;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,9 +60,6 @@ import com.google.inject.Injector;
 import com.google.inject.persist.UnitOfWork;
 
 import junit.framework.Assert;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.persistence.EntityManager;
 
 /**
  * Tests {@link AlertDefinitionDAO} for interacting with

@@ -18,35 +18,35 @@
 
 package org.apache.ambari.server.api;
 
-import static org.easymock.EasyMock.capture;
-import static org.easymock.EasyMock.eq;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.expectLastCall;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
+// import static org.easymock.EasyMock.capture;
+// import static org.easymock.EasyMock.eq;
+// import static org.easymock.EasyMock.expect;
+// import static org.easymock.EasyMock.expectLastCall;
+// import static org.junit.Assert.assertEquals;
+// import static org.mockito.Mockito.when;
+// import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+// import java.io.IOException;
+// import java.io.PrintWriter;
+// import java.io.StringWriter;
 import java.util.UUID;
 
-import javax.servlet.RequestDispatcher;
+//import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ambari.server.security.authentication.jwt.JwtAuthenticationPropertiesProvider;
-import org.apache.http.HttpStatus;
-import org.easymock.Capture;
-import org.easymock.EasyMock;
+//import org.apache.http.HttpStatus;
+// import org.easymock.Capture;
+// import org.easymock.EasyMock;
 import org.easymock.EasyMockSupport;
 import org.eclipse.jetty.server.HttpChannel;
 import org.eclipse.jetty.server.HttpConnection;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Response;
-import org.junit.Test;
+// import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.stubbing.Answer;
+// import org.mockito.stubbing.Answer;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.slf4j.Logger;
