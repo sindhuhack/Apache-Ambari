@@ -61,22 +61,22 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>4.0.5.RELEASE</version>
+      <version>5.3.39-atlassian-4</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
-      <version>4.0.5.RELEASE</version>
+      <version>5.3.39-atlassian-4</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
-      <version>4.0.5.RELEASE</version>
+      <version>5.3.39-atlassian-4</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>4.0.5.RELEASE</version>
+      <version>5.3.39-atlassian-4</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -86,7 +86,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-expression</artifactId>
-      <version>4.0.5.RELEASE</version>
+      <version>5.3.39-atlassian-4</version>
     </dependency>
 
   </dependencies>
