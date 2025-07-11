@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "node-gyp": "^5.0.1",
-    "node-sass": "6.0.0"
+    "node-sass": "9.0.0"
   },
   "author": "",
   "license": "MIT",
