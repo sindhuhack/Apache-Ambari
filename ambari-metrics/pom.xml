@@ -48,7 +48,7 @@
     <phoenix.hbase.compat>2.5</phoenix.hbase.compat>
     <curator.version>4.2.0</curator.version>
     <os.target>centos7</os.target>
-    <commons-lang3.version>3.12.0</commons-lang3.version>
+    <commons-lang3.version>3.18.0</commons-lang3.version>
     <hbase.tar>https://clemlabs.s3.eu-west-3.amazonaws.com/${os.target}/odp-release/${odp.release.stack}-${odp.release.number}/tars/hbase/hbase-${hbase.version}-bin.tar.gz</hbase.tar>
     <hbase.folder>hbase-${hbase.version}</hbase.folder>
     <hadoop.tar>https://clemlabs.s3.eu-west-3.amazonaws.com/${os.target}/odp-release/${odp.release.stack}-${odp.release.number}/tars/hadoop/hadoop-${hadoop.version}.tar.gz</hadoop.tar>
