@@ -25,8 +25,8 @@
   <url>https://ambari.apache.org/</url>
   <properties>
     <minAmbariVersion>2.4.0.0</minAmbariVersion>
-    <maxAmbariVersion></maxAmbariVersion>
-    <nifiversion>1.0.0</nifiversion>
+    <maxAmbariVersion/>
+    <nifiversion>1.19.0</nifiversion>
   </properties>
   <parent>
     <groupId>org.apache.ambari.contrib.mpacks</groupId>
