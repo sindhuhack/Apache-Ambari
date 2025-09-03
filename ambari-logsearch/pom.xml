@@ -89,7 +89,7 @@
     <odp.release.stack>1.2.2.0</odp.release.stack>
     <odp.release.number>138</odp.release.number>
     <!-- <hadoop.version>3.1.0.1.2.1.0-${odp.release.number}</hadoop.version> -->
-    <hadoop.version>3.3.6.${odp.release.stack}-${odp.release.number}</hadoop.version>
+    <hadoop.version>3.4.2</hadoop.version>
     <common.io.version>2.5</common.io.version>
     <zookeeper.version>3.8.4.${odp.release.stack}-${odp.release.number}</zookeeper.version>
     <forkCount>4</forkCount>
@@ -513,14 +513,14 @@
         <version>${jetty.version}</version>
       </dependency>
       <dependency>
-<<<<<<< HEAD
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-core</artifactId>
         <version>${fasterxml-jackson.version}</version>
       </dependency>
       <dependency>
 =======
->>>>>>> 2.7.11.0-python3
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 2.7.11.0-python3
         <groupId>org.apache.curator</groupId>
         <artifactId>jcurator-framework</artifactId>
         <version>${curator.version}</version>
