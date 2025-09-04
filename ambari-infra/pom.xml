@@ -36,7 +36,7 @@
     <hadoop.version>3.3.6.${odp.release.stack}-${odp.release.number}</hadoop.version>
     <surefire.argLine>-Xmx1024m -Xms512m</surefire.argLine>
     <!-- <zookeeper.version>3.8.4.${odp.release.stack}-${odp.release.number}</zookeeper.version> -->
-    <zookeeper.version>3.8.4.${odp.release.stack}-${odp.release.number}</zookeeper.version>
+    <zookeeper.version>3.9.4</zookeeper.version>
     <skipSurefireTests>false</skipSurefireTests>
     <log4j2.version>2.16.0</log4j2.version>
   </properties>
