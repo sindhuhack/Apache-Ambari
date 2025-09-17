@@ -33,7 +33,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring.version>5.3.22</spring.version>
-    <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
+    <spring-boot.version>3.4.9</spring-boot.version>
     <aws-sdk.version>1.11.445</aws-sdk.version>
     <gcs-connector.version>hadoop3-1.9.10</gcs-connector.version>
   </properties>
