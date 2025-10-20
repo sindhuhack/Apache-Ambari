@@ -40,7 +40,7 @@
     <reload4j.version>1.2.22</reload4j.version>
     <logback.version>1.2.10</logback.version>
     <guice.version>4.1.0</guice.version>
-    <spring.version>5.3.22</spring.version>
+    <spring.version>6.2.12</spring.version>
     <spring.security.version>5.7.2</spring.security.version>
     <fasterxml.jackson.version>2.12.7</fasterxml.jackson.version>
     <fasterxml.jackson.databind.version>2.12.7.1</fasterxml.jackson.databind.version>
@@ -199,7 +199,7 @@
       <dependency>
         <groupId>org.springframework.ldap</groupId>
         <artifactId>spring-ldap-core</artifactId>
-        <version>2.3.2.RELEASE</version>
+        <version>3.3.4</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
