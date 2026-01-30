@@ -19,7 +19,7 @@
     "node": ">= 0.10.0"
   },
   "dependencies": {
-    "node-gyp": "^5.0.1",
+    "node-gyp": "^11.0.0",
     "node-sass": "6.0.0"
   },
   "author": "",
